@@ -5,7 +5,6 @@ import {createClient} from "@/utils/supabase/server";
 import Link from "next/link";
 import {User} from "@supabase/auth-js";
 import {signout} from "@/lib/auth/auth_actions";
-import {PostgrestResponse} from "@supabase/supabase-js";
 import {UserType} from "@/lib/types";
 
 export default async function Titlebar({showAccountInfo = false, showGoToDashboard = false}: {
