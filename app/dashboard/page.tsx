@@ -37,7 +37,7 @@ function CompanyCard({company}: {company: string}) {
             </div>
             <div>
                 <h1 className="text-lg font-semibold">{company}</h1>
-                <p className="text-zinc-700 text-sm">ldg#108432</p>
+                <p className="text-zinc-600 text-sm -translate-y-1">larson-design-group</p>
             </div>
             <div className="ml-10 pt-3">
                 Add some other info here sometime

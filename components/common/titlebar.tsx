@@ -5,6 +5,8 @@ import {createClient} from "@/utils/supabase/server";
 import Link from "next/link";
 import {User} from "@supabase/auth-js";
 import {signout} from "@/lib/auth/auth_actions";
+import {PostgrestResponse} from "@supabase/supabase-js";
+import {UserType} from "@/lib/types";
 
 export default async function Titlebar({showAccountInfo = false, showGoToDashboard = false}: {
     showAccountInfo: boolean,
@@ -13,7 +15,9 @@ export default async function Titlebar({showAccountInfo = false, showGoToDashboa
 
     const supabase = await createClient();
 
-    const { data, error } = await supabase.auth.getUser();
+    const { data: authData, error: authError } = await supabase.auth.getUser();
+
+    const { data: user } = await supabase.from("user").select("*").eq("auth_id", authData?.user?.id).single();
 
     if (!showAccountInfo) {
         return (
@@ -30,7 +34,7 @@ export default async function Titlebar({showAccountInfo = false, showGoToDashboa
             <Link href="/" className="flex-grow font-bold text-3xl font-mono ml-4 mt-1 text-zinc-900 hover:cursor-pointer">
                 Welcome to PlanSync
             </Link>
-            {(error || !data?.user) ?
+            {(authError || !authData?.user) ?
                 <div className="flex flex-row">
                     <div className="flex-grow-0 flex-row flex duration-50 transition-all">
                         <Link href="/signin" className="underline m-0.5 px-5 hover:cursor-pointer hover:bg-zinc-100 flex items-center justify-center">
@@ -48,7 +52,7 @@ export default async function Titlebar({showAccountInfo = false, showGoToDashboa
                         <FontAwesomeIcon className="w-6 h-6 text-zinc-400 hover:text-zinc-500 hover:cursor-pointer m-3" icon={faGear} />
                     </div>
                     <Divider type="horizontal" />
-                    <AccountInfoButton user={data.user} />
+                    <AccountInfoButton authUser={authData.user} user={user} />
                 </div>
             }
 
@@ -56,27 +60,37 @@ export default async function Titlebar({showAccountInfo = false, showGoToDashboa
     );
 }
 
-function AccountInfoButton({user}: { user: User }   ) {
+function AccountInfoButton({authUser, user}: { authUser: User, user: UserType | null }   ) {
 
     return(
         <div className="group">
-            <div>
+            <Link href="/account">
                 <div className="flex-grow-0 flex-row flex group hover:cursor-pointer group-hover:bg-zinc-200 p-2 pl-4 duration-50 transition-all">
                     <div className="bg-blue-300 rounded-full h-8 w-8 mr-2 flex justify-center items-center font-bold text-white p-0 group-hover:outline-3 duration-50 group-hover:outline-blue-400 transition-colors outline-white outline-offset-1">
-                        BD
+                        {user ? user.first.charAt(0).toUpperCase() + user.last.charAt(0).toUpperCase() : "!"}
                     </div>
                     <div className="h-8 flex justify-center items-center font-bold text-zinc-800 group-hover:text-black pr-2">
                         &#9660;
                     </div>
                 </div>
-            </div>
+            </Link>
             <div className="hidden group-hover:block bg-zinc-100 absolute top-0 right-0 mt-12 border-1 border-t-0 border-zinc-400">
                 <div className="flex flex-col p-2">
-                    <div className="pb-4">
-                        <p className="text-zinc-500 text-xs m-0">Email</p>
-                        <p className="text-black">{user.email}</p>
+                    {
+                        user ?
+                        <div className="pb-4">
+                            <p className="font-bold text-lg">{user.first} {user.last}</p>
+                            <p className="text-zinc-700 -translate-y-2">{authUser.email}</p>
+                        </div>
+                        :
+                        <div className="pb-4">
+                            <p className="bg-red-300 border-red-700 rounded-md p-2 text-black text-xs m-0">Finish Setting up Your Account!</p>
+                        </div>
+                    }
+                    <div className="flex flex-row gap-2">
+                        <Link href="/account" className="w-fit border-2 border-black hover:bg-zinc-200 rounded-md text-black font-semibold pb-0.5 px-2 hover:cursor-pointer">Go to Account</Link>
+                        <button className="w-fit bg-black hover:bg-zinc-900 rounded-md text-white font-semibold pb-0.5 px-2 hover:cursor-pointer" onClick={signout}>Sign Out</button>
                     </div>
-                    <button className="w-fit bg-black hover:bg-zinc-900 rounded-md text-white font-semibold pb-0.5 px-2 hover:cursor-pointer" onClick={signout}>Sign Out</button>
                 </div>
             </div>
         </div>
