@@ -19,16 +19,16 @@ export default async function SignInPage() {
     return (
         <div className="flex flex-col min-h-screen">
             <Titlebar showAccountInfo={false} />
-            <main className="flex-grow flex flex-col items-center justify-center gap-2">
+            <main className="flex-grow flex flex-col items-center justify-center gap-2 bg-zinc-200">
                 <div className="flex flex-col items-center">
                     <h1 className="text-3xl font-bold">Welcome Back</h1>
-                    <p className="text-stone-500">
+                    <p className="text-zinc-500">
                         Enter your credentials below to login.
                     </p>
                 </div>
                 <form className="border-1 p-6 space-y-2">
                     <div className="flex flex-col">
-                        <label className="text-stone-700" htmlFor="email">Email</label>
+                        <label className="text-zinc-700" htmlFor="email">Email</label>
                         <input className="bg-white border-1 rounded-md p-1"
                                id="email"
                                name="email"
@@ -38,7 +38,7 @@ export default async function SignInPage() {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <label className="text-stone-700" htmlFor="password">Password</label>
+                        <label className="text-zinc-700" htmlFor="password">Password</label>
                         <input className="bg-white border-1 rounded-md p-1" id="password" name="password" required type="password" />
                     </div>
                     <button formAction={signin} className="w-full bg-black rounded-md py-2 px-4 text-white mt-8 hover:cursor-pointer">Sign in</button>
