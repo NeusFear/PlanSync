@@ -24,7 +24,7 @@ export default async function Dashboard() {
 
     return(
         <div className="flex flex-col min-h-screen">
-            <Titlebar showAccountInfo={true} />
+            <Titlebar showAccountInfo={true} navTitle="Dashboard" />
             <main className="flex-grow bg-zinc-200 px-60">
                 <div className="flex flex-row w-full h-10 gap-4 my-3">
                     <div className="bg-white rounded-md border-1 border-zinc-300 flex-grow h-full text-zinc-600 pt-1.5 pl-6">Search Companies...</div>
@@ -42,7 +42,7 @@ export default async function Dashboard() {
 
 function CompanyCard({company}: {company: CompanyType}) {
     return (
-        <Link href="/dashboard/larson-design-group" className="flex flex-row bg-white p-2 rounded-sm shadow gap-2 hover:bg-zinc-50 hover:cursor-pointer">
+        <Link href={"/dashboard/" + company.id} className="flex flex-row bg-white p-2 rounded-sm shadow gap-2 hover:bg-zinc-50 hover:cursor-pointer">
             <div className="bg-yellow-500 h-12 w-12 flex items-center justify-center font-bold text-white">
                 {company.name.split(" ").map(value => value.charAt(0).toUpperCase()).join("")}
             </div>

@@ -18,7 +18,7 @@ export default async function AccountPage() {
     if (error || !user) {
         return (
             <div className="flex flex-col min-h-screen">
-                <Titlebar showAccountInfo={true}  />
+                <Titlebar showAccountInfo={true} navTitle="Account Info" />
                 <main className="flex-grow flex flex-col items-center justify-center gap-2 bg-zinc-200">
                     <div className="flex flex-col items-center">
                         <h1 className="text-3xl font-bold">Welcome</h1>
@@ -76,7 +76,7 @@ export default async function AccountPage() {
     } else {
         return (
             <div className="flex flex-col min-h-screen">
-                <Titlebar showAccountInfo={true} showGoToDashboard={true} />
+                <Titlebar showAccountInfo={true} showGoToDashboard={true} navTitle="Account Info" />
                 <main className="flex flex-col flex-grow bg-zinc-200">
                     {user.id}, {user.first}, {user.last}, {user.email}, {user.phone}, {user.created_at}
                 </main>
