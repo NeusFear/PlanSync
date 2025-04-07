@@ -26,6 +26,7 @@ export default function TitlebarUI({
 }) {
 
     const pathName = usePathname();
+    const pathParts = pathName.split("/");
 
     return (
         <header className="bg-white border-b-1 border-zinc-400">
@@ -36,7 +37,7 @@ export default function TitlebarUI({
                         <CompanyNavigation company={company} />
                         <Divider type="horizontal" />
                         <div className="ml-4 mt-2.5 flex flex-row text-zinc-900 font-semibold capitalize text-md">
-                            { pathName.split("/")[3] || "Home" }
+                            { pathParts[3] || "Home" } {pathParts[4] && <p className="text-zinc-400 mx-2">/</p>} { pathParts[4] || "" }
                         </div>
                     </div>
                     :
