@@ -1,8 +1,8 @@
 import {createClient} from "@/utils/supabase/server";
 import {redirect} from "next/navigation";
-import Titlebar from "@/components/common/titlebar";
 import Link from "next/link";
 import {CompanyType} from "@/lib/types";
+import Titlebar from "@/components/common/Titlebar";
 
 export default async function Dashboard() {
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { signup} from "@/lib/auth/auth_actions";
-import Titlebar from "@/components/common/titlebar";
+import Titlebar from "@/components/common/Titlebar";
 
 export default async function SignUpPage() {
     const supabase = await createClient();

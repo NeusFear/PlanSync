@@ -1,4 +1,4 @@
-import Titlebar from "@/components/common/titlebar";
+import Titlebar from "@/components/common/Titlebar";
 
 export default function Home() {
     return (

@@ -1,7 +1,7 @@
-import Titlebar from "@/components/common/titlebar";
 import {createClient} from "@/utils/supabase/server";
 import {redirect} from "next/navigation";
 import {addAccount} from "@/lib/account/account_actions";
+import Titlebar from "@/components/common/Titlebar";
 
 export default async function AccountPage() {
 
