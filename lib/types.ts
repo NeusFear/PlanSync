@@ -21,6 +21,17 @@ export type InternalUserType = {
     created_at: string;
     middle: string;
     title: string;
-    user: string;
+    user: UserType;
     company: string;
+}
+
+export type DepartmentType = {
+    id: string;
+    created_at: string;
+    company: CompanyType;
+    parent_department: InternalUserType | undefined;
+    department_head: InternalUserType;
+    name: string;
+    description: string;
+    code: string;
 }
